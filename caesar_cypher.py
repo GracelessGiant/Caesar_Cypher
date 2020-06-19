@@ -1,6 +1,5 @@
 """
 Creator: GracelessGiant
-Peep my twitter [@GracelessGiant]
 Description: Caesar_Cypher offers two functions.
     1. Enter a word/phrase and amount to create cyphered word/phrase
     2. Enter a cyphered work/phase to get potential solutions
@@ -55,15 +54,30 @@ def create_cypher():
             encrypted_text = encrypted_text+letter
         else:
             encrypted_text = encrypted_text+alphabet[position+shift]
+    print(encrypted_text)
     return encrypted_text
 
 
 def decypher():
     """
-
-    :return:
+    Takes encrypted text and finds all possible answers
+    :return: list of all possible answers
     """
-    pass
+    original_text = ""
+    answers = []
+
+    encrypted_text = input("Enter the encrypted text: ")
+
+    for shift in range(26):
+        for letter in encrypted_text:
+            position = find_letter(letter)
+            if position == 100:
+                original_text = original_text+letter
+            else:
+                original_text = original_text+alphabet[position-shift]
+        answers.append(original_text)
+        original_text = ""
+    print(answers)
 
 
 def main():
