@@ -25,6 +25,7 @@ def create_set():
 def find_letter(letter):
     """
     Finds the position of the current letter in the alphabetical list
+    :param letter:
     :return: the position of the desired letter or 100 if it is a space or special character
     """
     counter = 0
@@ -34,6 +35,45 @@ def find_letter(letter):
         counter += 1
 
     return 100
+
+
+def word_or_phrase(answer):
+    """
+    Takes the possible answer and determines if it is a word or phrase
+    :param answer: possible answer
+    :return: 0 if it a word or 1 if it is a phrase
+    """
+    solution = answer.split(" ")
+    if len(solution) == 1:
+        return 0
+    else:
+        return 1
+
+
+def parse_phrase(phrase):
+    """
+    Parses the phrase to determine how many words are in the dictionary from the phrase
+    :param phrase: possible phrase
+    :return: the likely phrase
+    """
+    pass
+
+
+def ai(answers):
+    """
+    Takes the potential answers and attempts to determine which answer is the most likely
+    :param answers: list of possible answers
+    :return: most likely answer
+    """
+    likely_answers = []
+
+    for ans in answers:
+        sol = word_or_phrase(ans)
+        if sol == 0:
+            if ans in dictionary:
+                likely_answers.append(ans)
+        else:
+            parse_phrase(ans)
 
 
 def create_cypher():
