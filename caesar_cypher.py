@@ -29,8 +29,16 @@ def find_letter(letter):
     :return: the position of the desired letter or 100 if it is a space or special character
     """
     counter = 0
+    capital = False
+
+    if letter.isupper():        # checks to see if the letter is a capital
+        capital = True
+        letter = letter.lower()
+
     for char in alphabet:
         if char == letter:
+            if capital:         # checks to see if the letter needs to be reverted to lowercase
+                return counter+50
             return counter
         counter += 1
 
@@ -93,7 +101,12 @@ def create_cypher():
         if position == 100:
             encrypted_text = encrypted_text+letter
         else:
-            encrypted_text = encrypted_text+alphabet[position+shift]
+            if position > 50:
+                swing = ((position-50) + shift) % 26
+                encrypted_text = encrypted_text+(alphabet[swing].upper())
+            else:
+                swing = (position + shift) % 26
+                encrypted_text = encrypted_text+alphabet[swing]
     print(encrypted_text)
     return encrypted_text
 
