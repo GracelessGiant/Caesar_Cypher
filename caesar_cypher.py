@@ -51,8 +51,7 @@ def word_or_phrase(answer):
     :param answer: possible answer
     :return: 0 if it a word or 1 if it is a phrase
     """
-    solution = answer.split(" ")
-    if len(solution) == 1:
+    if len(answer.split(" ")) == 1:
         return 0
     else:
         return 1
@@ -84,12 +83,25 @@ def ai(answers):
             parse_phrase(ans)
 
 
-def pretty_print(encryption):
+def pretty_print(text, function):
     """
-    Outputs the encrypted text
-    :param encryption: the encrypted text
+    Nicely prints out the potential answers
+    :param text: the word or phrase that was encrypted or decrypted
+    :param function: id for which function was used
     """
-    print("\nEncrypted Text: "+encryption)
+    counter = 0
+
+    if function == 1:
+        print("\nEncrypted Text: "+text)
+    else:
+        print("Potential Original Words: ")
+        for word in text:
+            if counter == 5:
+                print("\n")
+                counter = 0
+            else:
+                print(word+"  ", end="")
+                counter += 1
 
 
 def create_cypher():
@@ -142,18 +154,19 @@ def decypher():
                     original_text = original_text + alphabet[swing]
         answers.append(original_text)
         original_text = ""
-    print(answers)
+    return answers
 
 
 def main():
     create_set()
     function = int(input("Enter the associated number with the desired function:\n1. Apply desired Caesar cypher to "
-                         "original word/phrase\n2. Decpyher text to find original word/phase\nFunction: "))
+                         "original word/phrase\n2. Decypher text to find original word/phase\nFunction: "))
     if function == 1:
         encryption = create_cypher()
-        pretty_print(encryption)
+        pretty_print(encryption, 1)
     elif function == 2:
-        decypher()
+        decryption = decypher()
+        pretty_print(decryption, 2)
     else:
         print("That's not a correct input. Enter again.")
         os.system("clear")
