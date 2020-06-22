@@ -84,6 +84,14 @@ def ai(answers):
             parse_phrase(ans)
 
 
+def pretty_print(encryption):
+    """
+    Outputs the encrypted text
+    :param encryption: the encrypted text
+    """
+    print("\nEncrypted Text: "+encryption)
+
+
 def create_cypher():
     """
     Takes the original text and creates the encrypted text
@@ -107,7 +115,6 @@ def create_cypher():
             else:
                 swing = (position + shift) % 26
                 encrypted_text = encrypted_text+alphabet[swing]
-    print(encrypted_text)
     return encrypted_text
 
 
@@ -127,7 +134,12 @@ def decypher():
             if position == 100:
                 original_text = original_text+letter
             else:
-                original_text = original_text+alphabet[position-shift]
+                if position > 50:
+                    swing = ((position - 50) + shift) % 26
+                    original_text = original_text + (alphabet[swing].upper())
+                else:
+                    swing = (position + shift) % 26
+                    original_text = original_text + alphabet[swing]
         answers.append(original_text)
         original_text = ""
     print(answers)
@@ -138,7 +150,8 @@ def main():
     function = int(input("Enter the associated number with the desired function:\n1. Apply desired Caesar cypher to "
                          "original word/phrase\n2. Decpyher text to find original word/phase\nFunction: "))
     if function == 1:
-        create_cypher()
+        encryption = create_cypher()
+        pretty_print(encryption)
     elif function == 2:
         decypher()
     else:
